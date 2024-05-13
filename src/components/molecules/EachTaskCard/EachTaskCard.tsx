@@ -6,7 +6,7 @@ import { IconButton, Menu, MenuItem } from "@mui/material";
 import React from "react";
 
 interface EachTaskCardProps {
-    handleClickOpen: (task: TaskListModel) => void;
+    handleClickOpen: (type: string, task: TaskListModel) => void;
     task: TaskListModel;
 }
 
@@ -19,6 +19,11 @@ const EachTaskCard: FunctionComponent<EachTaskCardProps> = ({ handleClickOpen, t
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const handleOpenDialog = (type: string, task: TaskListModel) => {
+        handleClickOpen(type, task);
+        handleClose();
+    }
     return (
         <div className={styles['each-card-div']}>
             <div className={styles['icon-div']}>
@@ -42,11 +47,8 @@ const EachTaskCard: FunctionComponent<EachTaskCardProps> = ({ handleClickOpen, t
                     open={open}
                     onClose={handleClose}
                 >
-                    <MenuItem key={"edit"} onClick={() => {
-                        handleClickOpen(task);
-                        handleClose();
-                    }}> Edit </MenuItem>
-                    <MenuItem key={"delete"} onClick={handleClose}>Delete</MenuItem>
+                    <MenuItem key={"edit"} onClick={() => handleOpenDialog('edit', task)}> Edit </MenuItem>
+                    <MenuItem key={"delete"} onClick={() => handleOpenDialog('delete', task)}>Delete</MenuItem>
                 </Menu>
             </div>
             <p className={styles['task-description']}>{task.taskDescription}</p>

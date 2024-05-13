@@ -8,7 +8,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import styles from './CreateTaskDialog.module.scss';
 import RedirectButton from "../../atoms/Button/Button";
 import { useDispatch } from "react-redux";
-import { addTask, editTask } from "../../../redux/slices/persistedSlice";
+import { addTask, deleteTask, editTask } from "../../../redux/slices/persistedSlice";
 import { TaskListModel } from "../../../interfaces";
 import { v4 as uuidv4 } from 'uuid';
 import CloseIcon from '@mui/icons-material/Close';
@@ -28,6 +28,11 @@ const CustomDialog = styled(Dialog)(({ theme }) => ({
         color: '#ED8173',
         borderRadius: '25px',
         padding: theme.spacing(3),
+    },
+    '& .MuiDialogContent-root': {
+        // Add your custom styles for the Dialog content
+        color: '#AFADA9', // Change color to whatever you desire
+        fontSize: '15px'
     },
 }));
 
@@ -106,86 +111,115 @@ const CreateTaskDialog: FunctionComponent<CreateTaskDialogProps> = ({ open, hand
         });
     }
 
+    const onDeleteTask = () => {
+        dispatch(deleteTask({ id: taskDetails?.id }));
+        closeDialog();
+    }
+
     return (
-        <CustomDialog
-            open={open}
-            PaperProps={{
-                component: 'form',
-                onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-                    event.preventDefault();
-                    handleSubmit();
-                    handleClose();
-                },
-            }}
-        >
-            <DialogTitle className={styles['dialog-title']}>
-                <p>{type === 'create' ? "Create Task" : "Edit Task"}</p>
-                <IconButton onClick={handleClose}><CloseIcon /></IconButton>
-            </DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                    To subscribe to this website, please enter your email address here. We
-                    will send updates occasionally.
-                </DialogContentText>
-                <Input
-                    id="projectName"
-                    name="projectName"
-                    label="Project Name"
-                    value={taskDetailsForm.projectName}
-                    onChange={onChange}
-                />
-                <div className={styles['input-div-flex']}>
-                    <div style={{ width: '50%' }}>
-                        <Input
-                            id="taskName"
-                            name="taskName"
-                            label="Task Name"
-                            value={taskDetailsForm.taskName}
-                            onChange={onChange}
-                        />
+        type === 'delete' ?
+            <CustomDialog
+                open={open}
+            >
+                <DialogTitle className={styles['dialog-title']}>
+                    <p>Confirm Task Deletion</p>
+                    <IconButton onClick={handleClose}><CloseIcon /></IconButton>
+                </DialogTitle>
+                <DialogContent>
+                    <p>
+                        Are you sure you want to delete this task? This action cannot be undone. Deleting this task will remove it from your task list permanently. Please confirm whether you would like to proceed with the deletion.
+                    </p>
+                </DialogContent>
+                <DialogActions>
+                    <div className={styles['btn-div']}>
+                        <Button sx={{ color: '#ED8173', borderRadius: '25px' }} className={styles['cancel-btn']} onClick={() => closeDialog()}>Cancel</Button>
+                        <RedirectButton type="button" name={"Delete Task"} width="180px" height="40px" onClick={onDeleteTask} />
                     </div>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DemoContainer components={['DatePicker']}
-                            sx={{ paddingTop: '20px', width: "50%" }}>
-                            <DatePicker
-                                label="Styled picker"
-                                slots={{
-                                    day: StyledDay,
-                                }}
-                                value={taskDetailsForm.taskDueDate ? new Date(taskDetailsForm.taskDueDate) : new Date()}
-                                name="taskDueDate"
-                                onChange={(e) => onDateChange(e)}
-                                slotProps={{
-                                    openPickerIcon: { fontSize: 'medium' },
-                                    openPickerButton: { style: { color: '#ED8173' } },
-                                    textField: {
-                                        variant: 'outlined',
-                                        focused: true,
-                                        InputLabelProps: { style: { color: '#AFADA9' } }, // Change label color
-                                        sx: { '& fieldset': { borderColor: '#AFADA9 !important' } }, // Change outline color
-                                    },
-                                }}
+                </DialogActions>
+            </CustomDialog> :
+            <CustomDialog
+                open={open}
+                PaperProps={{
+                    component: 'form',
+                    onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
+                        event.preventDefault();
+                        handleSubmit();
+                        handleClose();
+                    },
+                }}
+            >
+                <DialogTitle className={styles['dialog-title']}>
+                    <p>{type === 'create' ? "Create Task" : "Edit Task"}</p>
+                    <IconButton onClick={handleClose}><CloseIcon /></IconButton>
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Complete the fields below to define your task
+                    </DialogContentText>
+                    <Input
+                        id="projectName"
+                        name="projectName"
+                        label="Project Name"
+                        value={taskDetailsForm.projectName}
+                        onChange={onChange}
+                    />
+                    <div className={styles['input-div-flex']}>
+                        <div style={{ width: '50%' }}>
+                            <Input
+                                id="taskName"
+                                name="taskName"
+                                label="Task Name"
+                                value={taskDetailsForm.taskName}
+                                onChange={onChange}
                             />
-                        </DemoContainer>
-                    </LocalizationProvider>
-                </div>
-                <Input
-                    id="taskDescription"
-                    label="Task Description"
-                    multiline={true}
-                    rows={4}
-                    name={"taskDescription"}
-                    value={taskDetailsForm.taskDescription}
-                    onChange={onChange}
-                />
-            </DialogContent>
-            <DialogActions>
-                <div className={styles['btn-div']}>
-                    <Button sx={{ color: '#ED8173', borderRadius: '25px' }} className={styles['cancel-btn']} onClick={() => closeDialog()}>Cancel</Button>
-                    <RedirectButton type="submit" name={type === "edit" ? "Edit Task" : "Create Task"} width="180px" height="40px" />
-                </div>
-            </DialogActions>
-        </CustomDialog>
+                        </div>
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <DemoContainer components={['DatePicker']}
+                                sx={{ paddingTop: '20px', width: "50%" }}>
+                                <DatePicker
+                                    label="Styled picker"
+                                    slots={{
+                                        day: StyledDay,
+                                    }}
+                                    value={taskDetailsForm.taskDueDate ? new Date(taskDetailsForm.taskDueDate) : new Date()}
+                                    name="taskDueDate"
+                                    onChange={(e) => onDateChange(e)}
+                                    slotProps={{
+                                        openPickerIcon: { fontSize: 'medium' },
+                                        openPickerButton: { style: { color: '#ED8173' } },
+                                        textField: {
+                                            variant: 'outlined',
+                                            focused: true,
+                                            InputLabelProps: { style: { color: '#AFADA9' } }, // Change label color
+                                            sx: {
+                                                '& fieldset': {
+                                                    borderColor: '#AFADA9 !important',
+                                                    borderRadius: '12px',
+                                                }
+                                            }, // Change outline color
+                                        },
+                                    }}
+                                />
+                            </DemoContainer>
+                        </LocalizationProvider>
+                    </div>
+                    <Input
+                        id="taskDescription"
+                        label="Task Description"
+                        multiline={true}
+                        rows={4}
+                        name={"taskDescription"}
+                        value={taskDetailsForm.taskDescription}
+                        onChange={onChange}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <div className={styles['btn-div']}>
+                        <Button sx={{ color: '#ED8173', borderRadius: '25px' }} className={styles['cancel-btn']} onClick={() => closeDialog()}>Cancel</Button>
+                        <RedirectButton type="submit" name={type === "edit" ? "Edit Task" : "Create Task"} width="180px" height="40px" />
+                    </div>
+                </DialogActions>
+            </CustomDialog>
     );
 }
 

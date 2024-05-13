@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { TaskListModel } from '../../interfaces';
 
 export const INITIAL_PERSISTED_STATE = {
     tasks: []
@@ -13,11 +14,15 @@ export const persistedSlice = createSlice({
             state.tasks.push(action.payload.task);
         },
         editTask: (state: any, action) => {
-            const { id, task } = action.payload;
-            const taskIndex = state.tasks.findIndex((t: any) => t.id === task.id);
+            const { task } = action.payload;
+            const taskIndex = state.tasks.findIndex((t: TaskListModel) => t.id === task.id);
             if (taskIndex !== -1) {
                 state.tasks[taskIndex] = { ...state.tasks[taskIndex], ...task };
             }
+        },
+        deleteTask: (state: any, action) => {
+            const { id } = action.payload;
+            state.tasks = state.tasks.filter((task: TaskListModel) => task.id !== id);
         }
     },
 })
@@ -26,7 +31,8 @@ export const persistedSlice = createSlice({
 export const {
     addTask,
     editTask,
-    resetState
+    resetState,
+    deleteTask
 } = persistedSlice.actions
 
 export default persistedSlice.reducer

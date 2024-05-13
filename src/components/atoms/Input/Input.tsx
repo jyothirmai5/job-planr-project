@@ -15,6 +15,7 @@ interface InputProps {
 const CustomTextField = styled(TextField)({
     '& .MuiInputLabel-root': { color: '#AFADA9 !important' },
     '& .MuiOutlinedInput-root': {
+        borderRadius: '12px',
         '& fieldset': { borderColor: '#AFADA9' },
         '&:hover fieldset': { borderColor: '#AFADA9' },
         '&.Mui-focused fieldset': { borderColor: '#AFADA9' },
