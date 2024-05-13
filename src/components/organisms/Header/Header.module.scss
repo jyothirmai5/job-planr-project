@@ -1,0 +1,8 @@
+@use '/src/styles/variables.scss' as *;
+
+.logo-text {
+    color: $font-secondary-color;
+    font-weight: 700;
+    font-size: 30px;
+    margin-bottom: 10px;
+}

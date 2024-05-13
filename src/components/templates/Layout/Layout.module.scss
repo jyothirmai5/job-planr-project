@@ -1,0 +1,10 @@
+@use '/src/styles/variables.scss' as *;
+
+.layout {
+    padding: 30px 80px 0px;
+}
+
+.child-background {
+    background-color: $bg-secondary-color;
+    border-radius: 25px;
+}

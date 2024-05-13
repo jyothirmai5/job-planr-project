@@ -1,0 +1,29 @@
+@use '/src/styles/variables.scss' as *;
+
+.each-card-div {
+    border-radius: 25px;
+    background-color: $bg-white-color;
+    padding: 20px 10px 25px 25px;
+    width: 250px;
+
+    .icon-div {
+        display: flex;
+        justify-content: space-between;
+
+        .task-name {
+            font-size: 20px;
+            font-weight: 500;
+            margin: auto 0px;
+        }
+    }
+
+    .task-description {
+        font-size: 15px;
+        font-weight: 200;
+    }
+
+    .due-date {
+        font-weight: 500;
+        color: $font-subtitle-color;
+    }
+}
