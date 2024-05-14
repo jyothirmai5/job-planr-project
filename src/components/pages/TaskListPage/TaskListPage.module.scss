@@ -2,11 +2,10 @@
 @use '/src/styles/mixins.scss' as *;
 
 .main-div {
-    // height: 75vh;
     padding: 20px;
-    // overflow-y: auto;
+
     @include media(mobile, tablet) {
-    height: 75vh;
+        height: 75vh;
     }
 }
 
@@ -29,6 +28,8 @@
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
+    height: 65vh;
+    overflow-y: auto;
 
     @include media(mobile) {
         flex-wrap: nowrap;
