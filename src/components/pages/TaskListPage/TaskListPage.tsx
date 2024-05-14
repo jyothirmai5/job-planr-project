@@ -3,7 +3,7 @@ import Layout from "../../templates/Layout/Layout";
 import styles from './TaskListPage.module.scss';
 import Button from "../../atoms/Button/Button";
 import EachTaskCard from "../../molecules/EachTaskCard/EachTaskCard";
-import CreateTaskDialog from "../../organisms/CreateTaskDialog/CreateTaskDialog";
+import SharedDialog from "../../organisms/SharedDialog/SharedDialog";
 import { useSelector } from "react-redux";
 import { TaskListModel } from "../../../interfaces";
 import NoTasksFound from "../../molecules/NoTasksFound/NoTasksFound";
@@ -43,8 +43,10 @@ const TaskListPage: FunctionComponent = () => {
                 </div>
                 {
                     taskList.length === 0 ?
+                        // If there are no tasks
                         <NoTasksFound />
                         :
+                        // Task list is displayed here
                         <div className={styles['task-list']}>
                             {taskList && taskList.map((task: TaskListModel, index: number) => (
                                 <div key={index}>
@@ -53,8 +55,10 @@ const TaskListPage: FunctionComponent = () => {
                             ))}
                         </div>
                 }
-                {open && <CreateTaskDialog handleClose={handleClose} open={open} type={type} taskDetails={editTaskDetails} />}
-                {openDeleteAlert && <CreateTaskDialog handleClose={() => setOpenDeleteAlert(false)} open={openDeleteAlert} type={type} taskDetails={editTaskDetails} />}
+                {/* Dialog used for Create and Edit Task */}
+                {open && <SharedDialog handleClose={handleClose} open={open} type={type} taskDetails={editTaskDetails} />}
+                {/* Dialog used for Delete Task Alert */}
+                {openDeleteAlert && <SharedDialog handleClose={() => setOpenDeleteAlert(false)} open={openDeleteAlert} type={type} taskDetails={editTaskDetails} />}
             </div>
         </Layout>
     );

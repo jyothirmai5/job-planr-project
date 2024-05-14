@@ -15,7 +15,7 @@ To get started with this project, follow these steps:
 git clone https://github.com/jyothirmai5/job-planr-project.git
 
 ## Navigate into the project directory:
-cd job-panr-project
+cd job-planr-project
 
 # Install dependencies using npm:
 npm install

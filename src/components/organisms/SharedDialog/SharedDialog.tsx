@@ -5,7 +5,7 @@ import Input from "../../atoms/Input/Input";
 import { DatePicker, LocalizationProvider, PickersDay } from "@mui/x-date-pickers";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import styles from './CreateTaskDialog.module.scss';
+import styles from './SharedDialog.module.scss';
 import RedirectButton from "../../atoms/Button/Button";
 import { useDispatch } from "react-redux";
 import { addTask, deleteTask, editTask } from "../../../redux/slices/persistedSlice";
@@ -13,7 +13,7 @@ import { TaskListModel } from "../../../interfaces";
 import { v4 as uuidv4 } from 'uuid';
 import CloseIcon from '@mui/icons-material/Close';
 
-interface CreateTaskDialogProps {
+interface SharedDialogProps {
     open: boolean;
     handleClose: () => void;
     type: string;
@@ -48,7 +48,7 @@ const StyledDay = styled(PickersDay)(() => ({
     },
 }));
 
-const CreateTaskDialog: FunctionComponent<CreateTaskDialogProps> = ({ open, handleClose, type, taskDetails }) => {
+const SharedDialog: FunctionComponent<SharedDialogProps> = ({ open, handleClose, type, taskDetails }) => {
     const [taskDetailsForm, setTaskDetailsForm] = useState({
         projectName: '',
         taskName: '',
@@ -59,12 +59,14 @@ const CreateTaskDialog: FunctionComponent<CreateTaskDialogProps> = ({ open, hand
     const dispatch = useDispatch();
 
     useEffect(() => {
+        // if it is edit task dialog update the task details in inputs
         if (type === 'edit' && taskDetails) {
             setTaskDetailsForm(taskDetails)
         }
     }, [taskDetails, type]);
 
     const handleSubmit = () => {
+        // Validations
         if (!taskDetailsForm.projectName || !taskDetailsForm.taskName || !taskDetailsForm.taskDescription || !taskDetailsForm.taskDueDate) {
             return;
         }
@@ -73,6 +75,7 @@ const CreateTaskDialog: FunctionComponent<CreateTaskDialogProps> = ({ open, hand
             resetTaskDetails();
             handleClose();
         } else {
+            // Create unique id for each task while creating
             const taskId = uuidv4();
             let task = {
                 ...taskDetailsForm,
@@ -120,6 +123,7 @@ const CreateTaskDialog: FunctionComponent<CreateTaskDialogProps> = ({ open, hand
     }
 
     return (
+        // Delete task alert
         type === 'delete' ?
             <CustomDialog
                 open={open}
@@ -140,6 +144,7 @@ const CreateTaskDialog: FunctionComponent<CreateTaskDialogProps> = ({ open, hand
                     </div>
                 </DialogActions>
             </CustomDialog> :
+            // Create or Edit Task Dialog
             <CustomDialog
                 open={open}
                 PaperProps={{
@@ -229,4 +234,4 @@ const CreateTaskDialog: FunctionComponent<CreateTaskDialogProps> = ({ open, hand
     );
 }
 
-export default CreateTaskDialog;
+export default SharedDialog;

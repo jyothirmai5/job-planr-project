@@ -1,5 +1,4 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import './App.css'
 import TaskListPage from './components/pages/TaskListPage/TaskListPage'
 import WelcomePage from './components/pages/WelcomePage/WelcomePage'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -8,12 +7,14 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 // import { resetState } from './redux/slices/persistedSlice';
 
 function App() {
+  // Sample code to clear Persisted Data in localstorage - Will remove it later
   // const dispatch = useDispatch();
 
   // // Dispatch resetState action on component mount
   // useEffect(() => {
   //   dispatch(resetState());
   // }, [dispatch]);
+
   // Define your custom primary color
   const theme = createTheme({
     palette: {
