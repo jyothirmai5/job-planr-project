@@ -7,9 +7,9 @@ interface FooterProps {
 
 const Footer: FunctionComponent<FooterProps> = () => {
     return (
-        <div className={styles.footer}>
+        <footer className={styles.footer}>
             Copyright ©2024 All Rights Reserved
-        </div>
+        </footer>
     );
 }
 

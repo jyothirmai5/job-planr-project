@@ -2,29 +2,49 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+# Task Manager App
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project is a task manager application built using React, following an atomic structure, and utilizing Vite for fast development.
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+To get started with this project, follow these steps:
 
-- Configure the top-level `parserOptions` property like this:
+```bash 
+# Clone this repository to your local machine:
+git clone https://github.com/jyothirmai5/job-planr-project.git
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Navigate into the project directory:
+cd job-panr-project
+
+# Install dependencies using npm:
+npm install
+
+# Run the development server:
+npm run dev
+
+# This command will start the development server. You can now view your Task Manager application in the browser.
+
 ```
+## Adobe XD Designs
+You can find the designs for this Task Manager application on Adobe XD. Click here to view the designs. `https://xd.adobe.com/view/209ad542-37d3-463d-954e-8c49e1db0faa-75c9/`
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Atomic Structure
+This project follows the atomic design methodology for structuring components. Atomic design  is a methodology for creating design systems by breaking down UI into its smallest components.
+
+The atomic design methodology consists of five distinct levels:
+
+Atoms: The smallest building blocks of UI, such as buttons, inputs, etc.
+Molecules: Combinations of atoms that form more complex UI elements, such as a form field with a label and input.
+Organisms: Groups of molecules joined together to form a section of a UI, such as a header or footer.
+Templates: Complete page layouts composed of organisms.
+Pages: Specific instances of templates, where actual content is populated.
+By organizing your components in this way, you can create a more scalable and maintainable UI architecture.
+
+## Vite
+Vite is a fast build tool that significantly improves the development experience for modern web projects. It provides lightning-fast cold server start and instant hot module replacement (HMR) during development.
+
+This project utilizes Vite to provide a fast and efficient development environment for your React applications.
+
+Contributing
+Contributions are welcome! If you have any suggestions, bug reports, or feature requests, please open an issue or submit a pull request.

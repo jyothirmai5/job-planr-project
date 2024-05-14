@@ -2,9 +2,9 @@
 @use '/src/styles/mixins.scss' as *;
 
 .main-div {
-    height: 75vh;
+    // height: 75vh;
     padding: 20px;
-    overflow-y: auto;
+    // overflow-y: auto;
     @include media(mobile, tablet) {
     height: 75vh;
     }
