@@ -19,7 +19,7 @@ const WelcomePage: FunctionComponent<WelcomePageProps> = () => {
             <div className={styles['main-div']}>
                 <div className={styles.title}>Achieve More, Together</div>
                 <div className={styles.subtitle}>Unlock synergy with <span className={styles['logo-color']}>JobPlanr</span>. Seamlessly align tasks with goals, maximizing efficiency and impact. Foster collaboration and transparency for unparalleled productivity.</div>
-                <Button type="button" width="300px" height="60px" name="Let's goo!!" onClick={onClick}></Button>
+                <Button type="button" width="300px" height="60px" name="Let's go!!" onClick={onClick}></Button>
             </div>
         </Layout >
     );

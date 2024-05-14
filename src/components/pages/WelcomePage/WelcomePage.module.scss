@@ -7,10 +7,10 @@
     justify-content: center;
     text-align: center;
     align-items: center;
-    height: 80vh;
+    height: 75vh;
 
     @include media(mobile) {
-        height: 75vh;
+        height: 70vh;
     }
 }
 
