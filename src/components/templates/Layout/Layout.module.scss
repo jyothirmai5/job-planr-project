@@ -1,10 +1,16 @@
 @use '/src/styles/variables.scss' as *;
+@use '/src/styles/mixins.scss' as *;
 
 .layout {
     padding: 30px 80px 0px;
+
+    @include media(mobile, tablet) {
+        padding: 15px 30px 0px;
+    }
 }
 
 .child-background {
     background-color: $bg-secondary-color;
     border-radius: 25px;
+    width: 100%;
 }

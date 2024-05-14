@@ -24,6 +24,13 @@ const EachTaskCard: FunctionComponent<EachTaskCardProps> = ({ handleClickOpen, t
         handleClickOpen(type, task);
         handleClose();
     }
+    const truncateString = (str: string, maxLength: number) => {
+        if (str.length > maxLength) {
+            return str.substring(0, maxLength) + '...';
+        }
+        return str;
+    };
+
     return (
         <div className={styles['each-card-div']}>
             <div className={styles['icon-div']}>
@@ -51,7 +58,7 @@ const EachTaskCard: FunctionComponent<EachTaskCardProps> = ({ handleClickOpen, t
                     <MenuItem key={"delete"} onClick={() => handleOpenDialog('delete', task)}>Delete</MenuItem>
                 </Menu>
             </div>
-            <p className={styles['task-description']}>{task.taskDescription}</p>
+            <p className={styles['task-description']}>{truncateString(task.taskDescription, 70)}</p>
             <p className={styles['due-date']}>{task.taskDueDate}</p>
         </div>
     );

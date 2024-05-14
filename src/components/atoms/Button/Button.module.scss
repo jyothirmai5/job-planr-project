@@ -1,0 +1,12 @@
+@use '/src/styles/variables.scss' as *;
+@use '/src/styles/mixins.scss' as *;
+
+.btn {
+    width: 100%;
+    margin: 10px;
+    font-size: 14px !important;
+
+    @include media(mobile, tablet) {
+        font-size: 10px !important;
+    }
+}

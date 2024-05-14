@@ -1,10 +1,19 @@
 @use '/src/styles/variables.scss' as *;
+@use '/src/styles/mixins.scss' as *;
 
 .each-card-div {
     border-radius: 25px;
     background-color: $bg-white-color;
     padding: 20px 10px 25px 25px;
     width: 250px;
+    height: 130px;
+
+    @include media(mobile) {
+        padding: 10px;
+        width: 80%;
+        margin: auto;
+        height: 100%;
+    }
 
     .icon-div {
         display: flex;
@@ -14,16 +23,29 @@
             font-size: 20px;
             font-weight: 500;
             margin: auto 0px;
+
+            @include media(mobile, tablet) {
+                font-size: 15px;
+            }
         }
     }
 
     .task-description {
         font-size: 15px;
         font-weight: 200;
+
+        @include media(mobile, tablet) {
+            font-size: 12px;
+        }
     }
 
     .due-date {
+        font-size: 15px;
         font-weight: 500;
         color: $font-subtitle-color;
+
+        @include media(mobile, tablet) {
+            font-size: 12px;
+        }
     }
 }

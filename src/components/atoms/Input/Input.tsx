@@ -1,4 +1,4 @@
-import { TextField, styled } from "@mui/material";
+import { TextField } from "@mui/material";
 import { FunctionComponent } from "react";
 
 interface InputProps {
@@ -9,27 +9,15 @@ interface InputProps {
     multiline?: boolean;
     rows?: number;
     onChange: (e: any) => void;
+    error: boolean;
 }
 
-// Define your custom styles for the TextField component
-const CustomTextField = styled(TextField)({
-    '& .MuiInputLabel-root': { color: '#AFADA9 !important' },
-    '& .MuiOutlinedInput-root': {
-        borderRadius: '12px',
-        '& fieldset': { borderColor: '#AFADA9' },
-        '&:hover fieldset': { borderColor: '#AFADA9' },
-        '&.Mui-focused fieldset': { borderColor: '#AFADA9' },
-        '&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: '#AFADA9',
-        },
-    },
-});
-
-const Input: FunctionComponent<InputProps> = ({ name, id, value, label, rows, multiline, onChange }) => {
+const Input: FunctionComponent<InputProps> = ({ name, id, value, label, rows, multiline, onChange, error }) => {
     return (
-        <CustomTextField
+        <TextField
             autoFocus
             required
+            error={error}
             margin="dense"
             id={id}
             name={name}
@@ -42,6 +30,11 @@ const Input: FunctionComponent<InputProps> = ({ name, id, value, label, rows, mu
             fullWidth
             focused
             variant="outlined"
+            InputProps={{
+                style: {
+                    borderRadius: '12px'
+                }
+            }}
             sx={{
                 marginTop: '20px',
             }}

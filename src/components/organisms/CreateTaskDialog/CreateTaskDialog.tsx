@@ -55,6 +55,7 @@ const CreateTaskDialog: FunctionComponent<CreateTaskDialogProps> = ({ open, hand
         taskDescription: '',
         taskDueDate: new Date().toDateString()
     });
+    const [clicked, setClicked] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -70,6 +71,7 @@ const CreateTaskDialog: FunctionComponent<CreateTaskDialogProps> = ({ open, hand
         if (type === 'edit') {
             dispatch(editTask({ task: taskDetailsForm }));
             resetTaskDetails();
+            handleClose();
         } else {
             const taskId = uuidv4();
             let task = {
@@ -78,6 +80,7 @@ const CreateTaskDialog: FunctionComponent<CreateTaskDialogProps> = ({ open, hand
             }
             dispatch(addTask({ task }));
             resetTaskDetails();
+            handleClose();
         }
     };
 
@@ -126,7 +129,7 @@ const CreateTaskDialog: FunctionComponent<CreateTaskDialogProps> = ({ open, hand
                     <IconButton onClick={handleClose}><CloseIcon /></IconButton>
                 </DialogTitle>
                 <DialogContent>
-                    <p>
+                    <p className={styles['dialog-content']}>
                         Are you sure you want to delete this task? This action cannot be undone. Deleting this task will remove it from your task list permanently. Please confirm whether you would like to proceed with the deletion.
                     </p>
                 </DialogContent>
@@ -144,7 +147,6 @@ const CreateTaskDialog: FunctionComponent<CreateTaskDialogProps> = ({ open, hand
                     onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
                         event.preventDefault();
                         handleSubmit();
-                        handleClose();
                     },
                 }}
             >
@@ -152,35 +154,38 @@ const CreateTaskDialog: FunctionComponent<CreateTaskDialogProps> = ({ open, hand
                     <p>{type === 'create' ? "Create Task" : "Edit Task"}</p>
                     <IconButton onClick={handleClose}><CloseIcon /></IconButton>
                 </DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Complete the fields below to define your task
-                    </DialogContentText>
+                <DialogContent className={styles['dialog-content']}>
+                    <p >
+                        {type === "create" ? "Complete the fields below to define your task" : "Modify the task details below to update your task"}
+                    </p>
                     <Input
                         id="projectName"
                         name="projectName"
                         label="Project Name"
                         value={taskDetailsForm.projectName}
                         onChange={onChange}
+                        error={clicked && !taskDetailsForm.projectName.trim()}
                     />
                     <div className={styles['input-div-flex']}>
-                        <div style={{ width: '50%' }}>
+                        <div className={styles['task-name-div']}>
                             <Input
                                 id="taskName"
                                 name="taskName"
                                 label="Task Name"
                                 value={taskDetailsForm.taskName}
                                 onChange={onChange}
+                                error={clicked && !taskDetailsForm.taskName.trim()}
                             />
                         </div>
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            <DemoContainer components={['DatePicker']}
-                                sx={{ paddingTop: '20px', width: "50%" }}>
+                            <DemoContainer components={['DatePicker']}>
                                 <DatePicker
+                                    className={styles['date-picker']}
                                     label="Styled picker"
                                     slots={{
                                         day: StyledDay,
                                     }}
+                                    disablePast
                                     value={taskDetailsForm.taskDueDate ? new Date(taskDetailsForm.taskDueDate) : new Date()}
                                     name="taskDueDate"
                                     onChange={(e) => onDateChange(e)}
@@ -211,12 +216,13 @@ const CreateTaskDialog: FunctionComponent<CreateTaskDialogProps> = ({ open, hand
                         name={"taskDescription"}
                         value={taskDetailsForm.taskDescription}
                         onChange={onChange}
+                        error={clicked && !taskDetailsForm.taskDescription.trim()}
                     />
                 </DialogContent>
                 <DialogActions>
                     <div className={styles['btn-div']}>
                         <Button sx={{ color: '#ED8173', borderRadius: '25px' }} className={styles['cancel-btn']} onClick={() => closeDialog()}>Cancel</Button>
-                        <RedirectButton type="submit" name={type === "edit" ? "Edit Task" : "Create Task"} width="180px" height="40px" />
+                        <RedirectButton onClick={() => setClicked(true)} type="submit" name={type === "edit" ? "Save Changes" : "Create"} width="180px" height="40px" />
                     </div>
                 </DialogActions>
             </CustomDialog>

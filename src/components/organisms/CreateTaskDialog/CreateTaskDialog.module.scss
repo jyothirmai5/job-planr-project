@@ -1,22 +1,77 @@
+@use '/src/styles/variables.scss' as *;
+@use '/src/styles/mixins.scss' as *;
+
 .input-div-flex {
     display: flex;
     justify-content: space-between;
     gap: 40px;
+    padding-top: 20px;
+
+    @include media(mobile) {
+        flex-direction: column;
+        gap: 12px;
+        padding-top: 0px;
+    }
+}
+
+.date-picker {
+    width: 50%;
+
+    @include media(mobile) {
+        width: 100%;
+    }
+}
+
+.task-name-div {
+    width: 50%;
+    margin-top: -12px;
+
+    @include media(mobile) {
+        width: 100%;
+        margin-top: 0px;
+    }
 }
 
 .dialog-title {
     display: flex;
     justify-content: space-between;
 
+    @include media(tablet, mobile) {
+        padding: 10px 0px !important;
+    }
+
     p {
         font-size: 25px;
         margin: 0;
+
+        @include media(mobile, tablet) {
+            font-size: 20px;
+        }
+    }
+}
+
+.dialog-content {
+    @include media(mobile, tablet) {
+        padding: 0 !important;
+    }
+
+    p {
+        font-size: 15px;
+
+        @include media(mobile, tablet) {
+            font-size: 12px;
+        }
     }
 }
 
 .cancel-btn {
     width: 180px;
     height: 40px;
+    font-size: 14px !important;
+
+    @include media(mobile, tablet) {
+        font-size: 10px !important;
+    }
 }
 
 .btn-div {
@@ -24,4 +79,8 @@
     justify-content: space-between;
     width: 100%;
     margin: 20px;
+
+    @include media(mobile, tablet) {
+        margin: 0;
+    }
 }
