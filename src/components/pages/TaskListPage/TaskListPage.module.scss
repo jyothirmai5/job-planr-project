@@ -3,6 +3,7 @@
 
 .main-div {
     padding: 20px;
+    height: 100%;
 
     @include media(mobile, tablet) {
         height: 75vh;
@@ -28,7 +29,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
-    height: 65vh;
+    height: 60vh;
     overflow-y: auto;
 
     @include media(mobile) {
